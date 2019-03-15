@@ -1,0 +1,29 @@
+{
+    "name": "sitphp/benchmarks",
+    "description": "A simple tool for benchmarking",
+    "keywords": ["php", "benchmark"],
+    "homepage": "https://github.com/php-sit/benchmarks",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexandre GEISWILLER",
+            "email": "alexandre.geiswiller@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7"
+    },
+    "require-dev": {
+        "gealex/doublit" : "~2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "SitPHP\\Benchmarks\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SitPHP\\Benchmarks\\Tests\\": "tests"
+        }
+    }
+}
