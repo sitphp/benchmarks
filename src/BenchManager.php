@@ -11,6 +11,8 @@ class BenchManager
     private $benchmarks = [];
 
     /**
+     * Return a new bench
+     *
      * @param string|null $name
      * @return Bench
      */
@@ -26,14 +28,41 @@ class BenchManager
         return $bench;
     }
 
+    /**
+     * Check if benchmark exists
+     *
+     * @param string $name
+     * @return bool
+     */
     function hasBenchmark(string $name){
         return isset($this->benchmarks[$name]);
     }
 
+    /**
+     * Get a bench by name
+     *
+     * @param string $name
+     * @return mixed|null
+     */
     function getBenchmark(string $name){
         return $this->benchmarks[$name] ?? null;
     }
 
+    /**
+     * Return all benchmarks
+     *
+     * @return array
+     */
+    function getAllBenchmarks(){
+        return $this->benchmarks;
+    }
+
+    /**
+     * Get benchmarks by group
+     *
+     * @param string $name
+     * @return array
+     */
     function getBenchmarksByGroup(string $name){
         $benchmark_group = [];
         foreach($this->benchmarks as $benchmark){
@@ -44,10 +73,12 @@ class BenchManager
         return $benchmark_group;
     }
 
-    function getAllBenchmarks(){
-        return $this->benchmarks;
-    }
-
+    /**
+     * Get benchmarks by tag
+     *
+     * @param string $tag
+     * @return array
+     */
     function getBenchmarksByTag(string $tag){
         $benchmarks = [];
         foreach ($this->benchmarks as $benchmark){
@@ -104,65 +135,5 @@ class BenchManager
     {
         $memory = memory_get_peak_usage(true);
         return $raw ? $memory : Format::readableSize($memory,$round, $format);
-    }
-
-    function getMaxMemoryUsage($raw = false, int $round = 3, $format = '%size%%unit%'){
-        if(empty($this->benchmarks)) {
-            return null;
-        }
-        $max_memory_peak = max(array_map(function (Bench $bench){
-            return $bench->getMaxMemoryUsage(true);
-        }, $this->benchmarks));
-        return $raw ? $max_memory_peak : Format::readableSize($max_memory_peak,$round, $format);
-    }
-
-    function getMinMemoryUsage($raw = false, int $round = 3, $format = '%size%%unit%'){
-        if(empty($this->benchmarks)) {
-            return null;
-        }
-        $min_memory_peak = min(array_map(function (Bench $bench){
-            return $bench->getMinMemoryUsage(true);
-        }, $this->benchmarks));
-        return $raw ? $min_memory_peak : Format::readableSize($min_memory_peak,$round, $format);
-    }
-
-    function getMaxMemoryPeak($raw = false, int $round = 3, $format = '%size%%unit%'){
-        if(empty($this->benchmarks)) {
-            return null;
-        }
-        $max_memory_peak = max(array_map(function (Bench $bench){
-            return $bench->getMaxMemoryPeak(true);
-        }, $this->benchmarks));
-        return $raw ? $max_memory_peak : Format::readableSize($max_memory_peak,$round, $format);
-    }
-
-    function getMinMemoryPeak($raw = false, int $round = 3, $format = '%size%%unit%'){
-        if(empty($this->benchmarks)) {
-            return null;
-        }
-        $min_memory_peak = min(array_map(function (Bench $bench){
-            return $bench->getMinMemoryPeak(true);
-        }, $this->benchmarks));
-        return $raw ? $min_memory_peak : Format::readableSize($min_memory_peak,$round, $format);
-    }
-
-    function getMaxElapsed($raw = false, int $round = 3, string $format = '%time%%unit%'){
-        if(empty($this->benchmarks)) {
-            return null;
-        }
-        $max_elapsed = max(array_map(function (Bench $bench){
-            return $bench->getElapsed(true);
-        }, $this->benchmarks));
-        return $raw ? $max_elapsed : Format::readableTime($max_elapsed,$round, $format);
-    }
-
-    function getMinElapsed($raw = false, int $round = 3, string $format = '%time%%unit%'){
-        if(empty($this->benchmarks)) {
-            return null;
-        }
-        $min_elapsed = min(array_map(function (Bench $bench){
-            return $bench->getElapsed(true);
-        }, $this->benchmarks));
-        return $raw ? $min_elapsed : Format::readableTime($min_elapsed, $round, $format);
     }
 }
