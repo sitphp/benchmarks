@@ -35,9 +35,9 @@ class Snap
         return $this->name;
     }
 
-    function getTime($raw = false, int $round = 3, $format = '%time%%unit%')
+    function getTime()
     {
-        return $raw ? $this->time : Format::readableTime($this->time, $round, $format);
+        return $this->time;
     }
 
     function getMemoryUsage($raw = false, int $round = 3, $format = '%size%%unit%')

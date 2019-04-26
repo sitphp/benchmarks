@@ -76,27 +76,21 @@ class Bench
     /**
      * Return start time
      *
-     * @param bool $raw
-     * @param int $round
-     * @param string $format
      * @return string
      */
-    function getStartTime($raw = false, int $round = 3, string $format = '%time%%unit%')
+    function getStartTime()
     {
-        return $raw ? $this->start_time : Format::readableTime($this->start_time, $round, $format);
+        return $this->start_time;
     }
 
     /**
      * Return stop time
      *
-     * @param bool $raw
-     * @param int $round
-     * @param string $format
      * @return string
      */
-    function getStopTime($raw = false, int $round = 3, string $format = '%time%%unit%')
+    function getStopTime()
     {
-        return $raw ? $this->stop_time : Format::readableTime($this->stop_time, $round, $format);
+        return $this->stop_time;
     }
 
     /**

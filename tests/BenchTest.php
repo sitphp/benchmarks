@@ -21,48 +21,36 @@ class BenchTest extends TestCase
     /*
      * Test start/stop
      */
-    public function testStartStopElapsed()
-    {
-        $bench = new Bench();
-        $bench->start();
-        sleep(1);
-        $bench->stop();
-
-
-        $this->assertTrue($bench->getElapsed(true) < 2);
-        $this->assertTrue(1 < $bench->getElapsed(true));
-    }
-
     public function testGetStartStopTime()
     {
         $bench = new Bench();
         $bench->start();
-        sleep(1);
+        usleep(50000);
         $bench->stop();
 
-        $elapsed = $bench->getStopTime(true) - $bench->getStartTime(true);
+        $elapsed = $bench->getStopTime() - $bench->getStartTime();
+        $this->assertTrue(0.05 < $elapsed);
+        $this->assertTrue(0.06 > $elapsed);
 
-        $this->assertTrue($elapsed < 2);
-        $this->assertTrue(1 < $elapsed);
     }
 
     public function testStartMultipleTimesShouldBeIgnored(){
         $bench = new Bench();
         $bench->start();
-        sleep(1);
+        usleep(50000);
         $bench->start();
         $bench->stop();
-        $this->assertTrue($bench->getElapsed(true) < 2);
-        $this->assertTrue(1 < $bench->getElapsed(true));
+        $this->assertTrue($bench->getElapsed(true) < 0.06);
+        $this->assertTrue(0.05 < $bench->getElapsed(true));
     }
 
     function testStopMultipleTimesShouldBeIgnored(){
         $bench = new Bench();
         $bench->start();
         $bench->stop();
-        sleep(1);
+        usleep(50000);
         $bench->stop();
-        $this->assertTrue($bench->getElapsed(true) < 1);
+        $this->assertTrue($bench->getElapsed(true) < 0.01);
     }
 
     public function testIsRunning()

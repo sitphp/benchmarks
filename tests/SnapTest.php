@@ -19,7 +19,7 @@ class SnapTest extends TestCase
     public function testGetTime()
     {
         $snap = new Snap();
-        $this->assertIsFloat($snap->getTime(true));
+        $this->assertIsFloat($snap->getTime());
     }
 
     public function testGetMemoryUsage()
