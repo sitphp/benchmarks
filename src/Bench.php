@@ -103,14 +103,14 @@ class Bench
      */
     function getElapsed($raw = false, int $round = 3, string $format = '%time%%unit%')
     {
-        if ($this->isRunning()) {
-            throw new LogicException('Stop benchmark before retrieving execution time');
-        }
-
         $elapsed = 0;
         for ($i = 0; $i < count($this->run_stops); $i++) {
             $elapsed += $this->run_stops[$i] - $this->run_starts[$i];
         }
+        if ($this->isRunning()) {
+            $elapsed += microtime(true) - end($this->run_starts);
+        }
+
         return $raw ? $elapsed : Format::readableTime($elapsed, $round, $format);
     }
 
@@ -136,6 +136,8 @@ class Bench
     }
 
     /**
+     * Return given benchmark snapshot
+     *
      * @param string $name
      * @return Snap
      */
@@ -144,16 +146,33 @@ class Bench
         return $this->snaps[$name] ?? null;
     }
 
+    /**
+     * Return all benchmark snapshots
+     *
+     * @return array
+     */
     function getAllSnaps()
     {
         return $this->snaps;
     }
 
+    /**
+     * Check if benchmark has given snapshot
+     *
+     * @param string $name
+     * @return bool
+     */
     function hasSnap(string $name)
     {
         return isset($this->snaps[$name]);
     }
 
+    /**
+     * Set benchmark tags
+     *
+     * @param $tags
+     * @return $this
+     */
     function setTags($tags)
     {
         $tags = (array)$tags;
@@ -161,6 +180,12 @@ class Bench
         return $this;
     }
 
+    /**
+     * Add benchmark tag
+     *
+     * @param $tags
+     * @return $this
+     */
     function addTags($tags)
     {
         $tags = (array)$tags;
@@ -169,21 +194,73 @@ class Bench
         return $this;
     }
 
+    /**
+     * Return benchmark tags
+     *
+     * @return array
+     */
     function getTags()
     {
         return $this->tags;
     }
 
+    /**
+     * Check if benchmark has tag
+     *
+     * @param string $tag
+     * @return bool
+     */
     function hasTag(string $tag)
     {
         return in_array($tag, $this->tags);
     }
 
+    /**
+     * Check if benchmark is running
+     *
+     * @return bool
+     */
     function isRunning()
     {
         return count($this->run_starts) - count($this->run_stops) == 1;
     }
 
+    /**
+     * Returns the memory usage
+     *
+     * @param bool $raw
+     * @param int $round
+     * @param string $format
+     * @return int|string
+     */
+    function getMemoryUsage($raw = false, int $round = 3,$format = '%size%%unit%')
+    {
+        $memory = memory_get_usage(true);
+        return $raw ? $memory : Format::readableSize($memory,$round, $format);
+    }
+
+    /**
+     * Returns the memory peak
+     *
+     * @param bool $raw
+     * @param int $round
+     * @param string $format The format to display
+     * @return string|float
+     */
+    function getMemoryPeak($raw = false, int $round = 3, $format = '%size%%unit%')
+    {
+        $memory = memory_get_peak_usage(true);
+        return $raw ? $memory : Format::readableSize($memory,$round, $format);
+    }
+
+    /**
+     * Return min snaps memory usage
+     *
+     * @param bool $raw
+     * @param int $round
+     * @param string $format
+     * @return mixed|string|null
+     */
     function getMinMemoryUsage($raw = false, int $round = 3, $format = '%size%%unit%')
     {
         if(empty($this->snaps)) {
@@ -196,6 +273,14 @@ class Bench
         return $raw ? $min_memory_usage : Format::readableSize($min_memory_usage, $round, $format);
     }
 
+    /**
+     * Return max snaps memory usage
+     *
+     * @param bool $raw
+     * @param int $round
+     * @param string $format
+     * @return mixed|string|null
+     */
     function getMaxMemoryUsage($raw = false, int $round = 3, $format = '%size%%unit%')
     {
         if(empty($this->snaps)) {
@@ -207,6 +292,14 @@ class Bench
         return $raw ? $max_memory_usage : Format::readableSize($max_memory_usage, $round, $format);
     }
 
+    /**
+     * Return max snaps memory peak
+     *
+     * @param bool $raw
+     * @param int $round
+     * @param string $format
+     * @return mixed|string|null
+     */
     function getMaxMemoryPeak($raw = false, int $round = 3, $format = '%size%%unit%')
     {
         if(empty($this->snaps)) {
@@ -218,6 +311,14 @@ class Bench
         return $raw ? $max_memory_peak : Format::readableSize($max_memory_peak, $round, $format);
     }
 
+    /**
+     * Return min snaps memory peak
+     *
+     * @param bool $raw
+     * @param int $round
+     * @param string $format
+     * @return mixed|string|null
+     */
     function getMinMemoryPeak($raw = false, int $round = 3, $format = '%size%%unit%')
     {
         if(empty($this->snaps)) {

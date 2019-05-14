@@ -68,11 +68,12 @@ class BenchTest extends TestCase
     }
 
 
-    public function testGetElapsedWhenTestIsRunningShouldFail(){
-        $this->expectException(LogicException::class);
+    public function testGetElapsedWhenTestIsRunningShouldWork(){
         $bench = new Bench();
         $bench->start();
         $bench->getElapsed();
+
+        $this->assertTrue($bench->getElapsed(true) > 0);
     }
 
     /*
@@ -171,6 +172,24 @@ class BenchTest extends TestCase
         $bench = new Bench();
         $bench->snap('name');
         $bench->snap('name');
+    }
+
+    /*
+     * Test memory
+     */
+    public function testGetMemoryUsage()
+    {
+        $bench_manager = new Bench();
+        $bench = $bench_manager->getMemoryUsage(true);
+        $this->assertIsInt($bench);
+    }
+
+
+    public function testGetMemoryPeak()
+    {
+        $bench_manager = new Bench();
+        $bench = $bench_manager->getMemoryPeak(true);
+        $this->assertIsInt($bench);
     }
 
     /*

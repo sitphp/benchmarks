@@ -112,6 +112,8 @@ class BenchManager
     }
 
     /**
+     * Returns the memory usage
+     *
      * @param bool $raw
      * @param int $round
      * @param string $format
@@ -124,7 +126,7 @@ class BenchManager
     }
 
     /**
-     * Returns the memory peak, readable or not
+     * Returns the memory peak
      *
      * @param bool $raw
      * @param int $round
