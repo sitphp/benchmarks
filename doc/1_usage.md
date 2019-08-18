@@ -22,7 +22,6 @@ You can then retrieve the elapsed time after it is stopped (or even during execu
 $elapsed = $bench->getElapsed();
 ``` 
 
-
 ## Naming benchmarks
 
 Benchmarks can be named for saving purpose using the `SitPHP\Benchmarks\BenchManager` class.
@@ -69,12 +68,9 @@ $bench_2->addTags(['tag2', 'tag3']);
 $benches = $bench_manager->getBenchmarksByTag('tag1');
 ```
 
-
-
 ## Taking snapshots
 
 You can use snapshots while your benchmark is running to get benchmark information at a specific time.
-
 
 ```php
 $bench = new Bench();
@@ -92,6 +88,7 @@ echo $snap->getMemoryPeak();
 ```
 
 Snapshots can be named so you can save them and retrieve them whenever you need.
+
 ```php
 $bench->snap('my_snap');
 
@@ -100,7 +97,6 @@ if($bench->hasSnap('my_snap'){
     $snap = $bench->getSnap('my_snap')
 }
 ```
-
 
 ## Getting min/max memory usage
 
