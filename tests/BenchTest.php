@@ -1,6 +1,5 @@
 <?php
 
-
 use SitPHP\Benchmarks\Bench;
 use PHPUnit\Framework\TestCase;
 
