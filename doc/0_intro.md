@@ -3,14 +3,9 @@
 ## What is this library ?
 
 The "sitphp/benchmarks" library can help you to measure the time and memory that a PHP script uses.
-
 It can start taking note of a given moment that a script is running and record the start time and memory the script is using.
-
 The package can also keep track of the time that elapsed and the memory that was used until one or more points of the same script.
-
 It can as well measure the time and memory used when calling a given piece of code passed to the package as callable function.
-
-![command showcase](img/command_showcase.gif)
 
 ## Requirements
 
