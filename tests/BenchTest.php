@@ -1,5 +1,8 @@
 <?php
 
+namespace SitPHP\Benchmarks\Tests;
+
+use InvalidArgumentException;
 use SitPHP\Benchmarks\Bench;
 use PHPUnit\Framework\TestCase;
 

@@ -9,18 +9,18 @@ It can as well measure the time and memory used when calling a given piece of co
 
 ## Requirements
 
-This library requires at least PHP 7. It should be installed from composer which will make sure your configuration matches requirements.
+This library requires at least PHP 7.2 It should be installed from composer which will make sure your configuration matches requirements.
  > {.note .info} Note : You can get composer here : [https://getcomposer.org](https://getcomposer.org).
 
         
 ## Install
 
-Once you have composer installed, add the `"sitphp/benchmarks": "2.3.*"` line in the `"require"` section of your composer.json file :
+Once you have composer installed, add the `"sitphp/benchmarks": "2.4.*"` line in the `"require"` section of your composer.json file :
     
 ```json
 {
     "require": {
-        "sitphp/commands": "2.3.*"
+        "sitphp/benchmarks": "2.4.*"
     }
 }
 ```

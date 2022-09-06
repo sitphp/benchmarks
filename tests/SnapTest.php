@@ -1,7 +1,8 @@
 <?php
 
+namespace SitPHP\Benchmarks\Tests;
 
-use Doublit\TestCase;
+use SitPHP\Doubles\TestCase;
 use SitPHP\Benchmarks\Snap;
 
 class SnapTest extends TestCase
